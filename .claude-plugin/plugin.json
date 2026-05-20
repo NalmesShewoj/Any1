@@ -1,0 +1,19 @@
+{
+  "name": "any1-design-skills",
+  "description": "UI/UX design intelligence for Projekt Any1. Bundles ui-ux-pro-max, design-system, design, brand, ui-styling, banner-design, and slides skills.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Projekt Any1"
+  },
+  "license": "MIT",
+  "keywords": ["ui", "ux", "design", "styles", "typography", "color-palette", "accessibility", "charts", "components"],
+  "skills": [
+    "./.claude/skills/ui-ux-pro-max",
+    "./.claude/skills/design-system",
+    "./.claude/skills/design",
+    "./.claude/skills/brand",
+    "./.claude/skills/ui-styling",
+    "./.claude/skills/banner-design",
+    "./.claude/skills/slides"
+  ]
+}

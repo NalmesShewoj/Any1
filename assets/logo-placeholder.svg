@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  any1 Logo — PLACEHOLDER
+  ⚠️ Diese Datei ist eine vereinfachte Approximation des originalen
+     any1-Logos (stilisiertes A). Bitte ersetzen durch das echte SVG.
+
+  Original-Logo-Eigenschaften (laut User-Vorlage):
+  - Stilisiertes "A" aus zwei geometrischen Formen
+  - Rechte Form: aufwärtsgerichteter, sich verjüngender Wedge
+  - Linke Form: parallelogramm-artige Fläche mit geschwungener Unterkante (swoosh)
+  - Fill: solid #FFFFFF (für Dark Backgrounds optimiert)
+
+  Zielpfad nach Replacement: public/logo.svg
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" fill="none">
+  <!-- Right wedge (steeper, taller) -->
+  <path d="M 145 30 L 195 30 L 230 240 L 165 240 Z"
+        fill="currentColor" />
+  <!-- Left form with swoosh bottom -->
+  <path d="M 70 100 L 130 100 L 130 240 L 10 240
+           C 10 240, 40 200, 70 100 Z"
+        fill="currentColor"
+        opacity="0.95" />
+</svg>

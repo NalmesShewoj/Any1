@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  any1 Logo — PLACEHOLDER v2
+  ⚠️ Visuelle Approximation des Original-Logos (stilisiertes "A" aus zwei
+     geometrischen Formen). Für 1:1 bitte die echte SVG-Datei hier ablegen.
+
+  Verbesserte Proportionen vs v1:
+  - Rechte Form: schlanker und höher (steile parallelogramm-Linie)
+  - Linke Form: breiter mit prägnanterer Swoosh-Kurve am Boden
+  - Tighter spacing zwischen den beiden Formen
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 280" fill="currentColor">
+  <!-- Right wedge: tall thin parallelogram, sharp top -->
+  <path d="M 142 6 L 184 6 L 220 266 L 168 266 Z" />
+
+  <!-- Left wedge: chunkier shape with prominent swoosh bottom curve -->
+  <path d="M 62 88
+           L 130 88
+           L 130 266
+           L 6 266
+           C 6 264, 22 226, 62 88 Z" />
+</svg>
