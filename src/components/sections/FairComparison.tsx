@@ -124,7 +124,7 @@ export function FairComparison() {
         className="pointer-events-none absolute inset-x-0 top-1/3 -z-0 mx-auto h-80 max-w-3xl opacity-30 blur-3xl"
         style={{
           background:
-            "radial-gradient(ellipse at center, rgba(255,165,0,0.35), transparent 70%)",
+            "radial-gradient(ellipse at center, rgba(255,255,255,0.12), transparent 70%)",
         }}
       />
 
@@ -142,7 +142,7 @@ export function FairComparison() {
 
         {/* Comparison */}
         <div className="mt-16 flex flex-col items-stretch gap-5 md:flex-row md:items-center">
-          <AthleteCard athlete={LEFT} accent="#FFA500" delay={0} />
+          <AthleteCard athlete={LEFT} accent="#FFFFFF" delay={0} />
 
           {/* VS */}
           <motion.div
@@ -155,7 +155,7 @@ export function FairComparison() {
             vs
           </motion.div>
 
-          <AthleteCard athlete={RIGHT} accent="#38BDF8" delay={0.15} />
+          <AthleteCard athlete={RIGHT} accent="#A1A1AA" delay={0.15} />
         </div>
 
         {/* Punchline */}

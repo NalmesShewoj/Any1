@@ -54,7 +54,7 @@ export function Countdown({
       className="relative w-full max-w-xl rounded-2xl border border-white/12 bg-gradient-to-b from-white/[0.06] to-white/[0.02] p-6 backdrop-blur-2xl"
       style={{
         boxShadow:
-          "0 1px 0 rgba(255,255,255,0.08) inset, 0 16px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,165,0,0.05) inset",
+          "0 1px 0 rgba(255,255,255,0.08) inset, 0 16px 60px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.04) inset",
       }}
     >
       {/* Top accent line */}
@@ -63,7 +63,7 @@ export function Countdown({
         className="absolute inset-x-6 top-0 h-px"
         style={{
           background:
-            "linear-gradient(90deg, transparent 0%, rgba(255,165,0,0.6) 50%, transparent 100%)",
+            "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.45) 50%, transparent 100%)",
         }}
       />
 
@@ -113,7 +113,7 @@ export function Countdown({
           <div className="flex items-center gap-2.5">
             <span
               className="size-2 rounded-full bg-accent"
-              style={{ boxShadow: "0 0 12px rgba(255,165,0,0.7)" }}
+              style={{ boxShadow: "0 0 12px rgba(255,255,255,0.5)" }}
             />
             <span className="text-sm font-medium text-white">
               Founder-Pass

@@ -54,16 +54,22 @@
   --text-muted:     var(--ink-8);
   --text-inverse:   var(--ink-0);
 
-  --accent:       var(--accent-500);
-  --accent-hover: var(--accent-400);
+  /* Monochrome accent: weiß als Haupt-Akzent (CTAs, Highlights) */
+  --accent:       var(--ink-12);
+  --accent-hover: var(--ink-10);
   --accent-fg:    var(--ink-0);
-  --accent-glow:  rgba(255, 165, 0, 0.45);
+  --accent-glow:  rgba(255, 255, 255, 0.22);
+
+  /* Spark: das EINE ganz dezente warme Orange — nur Puls/Live-Akzente */
+  --spark:        #FFA500;
+  --spark-soft:   rgba(255, 165, 0, 0.65);
+  --spark-glow:   rgba(255, 165, 0, 0.30);
 
   --border-subtle: var(--ink-4);
   --border-strong: var(--ink-6);
-  --border-accent: var(--accent-500);
+  --border-accent: var(--ink-7);
 
-  --focus-ring: var(--accent-500);
+  --focus-ring: var(--ink-11);
 
   --hero-overlay: linear-gradient(180deg, rgba(0,0,0,0.30) 0%, rgba(0,0,0,0.78) 100%);
 }
@@ -84,6 +90,7 @@
   --color-accent:        var(--accent);
   --color-accent-hover:  var(--accent-hover);
   --color-accent-fg:     var(--accent-fg);
+  --color-spark:         var(--spark);
 
   --color-border-subtle: var(--border-subtle);
   --color-border-strong: var(--border-strong);
@@ -137,9 +144,9 @@ body {
    ============================================================================ */
 .hero-mesh-fallback {
   background:
-    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255, 165, 0, 0.20), transparent 60%),
-    radial-gradient(ellipse 70% 70% at 80% 80%, rgba(255, 113, 0, 0.14), transparent 60%),
-    radial-gradient(circle at 50% 50%, rgba(255, 200, 80, 0.06), transparent 70%),
+    radial-gradient(ellipse 80% 60% at 20% 20%, rgba(255, 255, 255, 0.10), transparent 60%),
+    radial-gradient(ellipse 70% 70% at 80% 80%, rgba(255, 255, 255, 0.06), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03), transparent 70%),
     #000;
   animation: mesh-drift 22s ease-in-out infinite alternate;
 }

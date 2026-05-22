@@ -15,7 +15,7 @@ export function FinalCta() {
         className="pointer-events-none absolute inset-0 opacity-50"
         style={{
           background:
-            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,165,0,0.22), transparent 70%)",
+            "radial-gradient(ellipse 60% 50% at 50% 50%, rgba(255,255,255,0.10), transparent 70%)",
         }}
       />
 

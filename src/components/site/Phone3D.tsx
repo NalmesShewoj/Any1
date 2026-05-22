@@ -21,7 +21,7 @@ function PhoneModel() {
         >
           <meshStandardMaterial
             color="#050505"
-            emissive="#FFA500"
+            emissive="#FFFFFF"
             emissiveIntensity={0.12}
             metalness={0.2}
             roughness={0.5}
@@ -31,8 +31,8 @@ function PhoneModel() {
         <mesh position={[0, 0.6, 0.18]}>
           <planeGeometry args={[1.4, 0.12]} />
           <meshStandardMaterial
-            color="#FFA500"
-            emissive="#FFA500"
+            color="#FFFFFF"
+            emissive="#FFFFFF"
             emissiveIntensity={2.2}
             toneMapped={false}
           />
@@ -40,8 +40,8 @@ function PhoneModel() {
         <mesh position={[0, 0.2, 0.18]}>
           <planeGeometry args={[1.1, 0.07]} />
           <meshStandardMaterial
-            color="#FFB121"
-            emissive="#FFB121"
+            color="#E8E8E8"
+            emissive="#E8E8E8"
             emissiveIntensity={1.4}
             toneMapped={false}
           />
@@ -66,8 +66,8 @@ export function Phone3D() {
     >
       <ambientLight intensity={0.6} />
       <directionalLight position={[4, 6, 5]} intensity={2} color="#ffffff" />
-      <directionalLight position={[-5, -2, 3]} intensity={0.8} color="#FFA500" />
-      <pointLight position={[0, 0, 4]} intensity={1.2} color="#FFA500" />
+      <directionalLight position={[-5, -2, 3]} intensity={0.8} color="#FFFFFF" />
+      <pointLight position={[0, 0, 4]} intensity={1.2} color="#FFFFFF" />
       <Suspense fallback={null}>
         <PhoneModel />
       </Suspense>

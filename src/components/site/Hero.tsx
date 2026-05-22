@@ -30,8 +30,8 @@ export function Hero() {
           <div
             className="absolute inset-0"
             style={{
-              filter:
-                "saturate(0.68) hue-rotate(-15deg) contrast(1.08) brightness(1.05)",
+              // Monochrom: komplett entsättigt → reines Schwarz/Weiß-Linienspiel
+              filter: "saturate(0) contrast(1.15) brightness(0.95)",
             }}
             aria-hidden
           >
@@ -59,12 +59,12 @@ export function Hero() {
           aria-hidden
         />
 
-        {/* Orange warmth bloom from center — sichtbarer */}
+        {/* Soft neutral light bloom from center (statt Orange) */}
         <div
-          className="absolute inset-0 mix-blend-overlay opacity-55"
+          className="absolute inset-0 opacity-30"
           style={{
             background:
-              "radial-gradient(ellipse 70% 60% at 50% 45%, rgba(255,165,0,0.85), transparent 70%)",
+              "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(255,255,255,0.12), transparent 70%)",
           }}
           aria-hidden
         />

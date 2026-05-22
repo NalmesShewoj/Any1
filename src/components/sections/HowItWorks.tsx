@@ -101,7 +101,7 @@ export function HowItWorks() {
               className="absolute inset-0 opacity-40 blur-3xl"
               style={{
                 background:
-                  "radial-gradient(ellipse at center, rgba(255,165,0,0.4), transparent 65%)",
+                  "radial-gradient(ellipse at center, rgba(255,255,255,0.16), transparent 65%)",
               }}
             />
             <Phone3D />
