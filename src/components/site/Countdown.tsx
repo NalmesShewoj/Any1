@@ -85,8 +85,8 @@ export function Countdown({
           <div className="mb-5 flex items-center justify-between gap-3">
             <div className="flex items-center gap-2">
               <span className="relative flex size-1.5">
-                <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
-                <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
+                <span className="absolute inline-flex size-full animate-ping rounded-full bg-spark opacity-60" />
+                <span className="relative inline-flex size-1.5 rounded-full bg-spark" />
               </span>
               <span className="text-[10px] font-semibold uppercase tracking-[0.22em] text-white/70">
                 Launch in

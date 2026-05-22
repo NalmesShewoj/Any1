@@ -105,8 +105,8 @@ export function Hero() {
           className="mb-7 inline-flex items-center gap-2.5 rounded-full border border-white/15 bg-white/[0.04] px-4 py-1.5 backdrop-blur-md"
         >
           <span className="relative flex size-1.5">
-            <span className="absolute inline-flex size-full animate-ping rounded-full bg-accent opacity-60" />
-            <span className="relative inline-flex size-1.5 rounded-full bg-accent" />
+            <span className="absolute inline-flex size-full animate-ping rounded-full bg-spark opacity-60" />
+            <span className="relative inline-flex size-1.5 rounded-full bg-spark" />
           </span>
           <span className="text-xs font-medium tracking-wide text-white/80">
             Launching 1. August 2026
