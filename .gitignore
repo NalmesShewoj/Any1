@@ -43,6 +43,7 @@ next-env.d.ts
 # Claude Code local-only configs
 .claude/settings.local.json
 .claude/launch.json
+.mcp.json
 
 # IDE / OS
 .DS_Store
