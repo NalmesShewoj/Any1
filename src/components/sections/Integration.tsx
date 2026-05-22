@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Watch, Footprints, Mountain, ShieldCheck, EyeOff, Lock } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { PulseWave } from "@/components/site/PulseWave";
+import { TiltCard } from "@/components/site/TiltCard";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -108,12 +109,10 @@ export function Integration() {
             {PRIVACY.map((p, i) => {
               const Icon = p.icon;
               return (
-                <motion.div
+                <TiltCard
                   key={p.title}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-60px" }}
-                  transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
+                  delay={i * 0.1}
+                  intensity={8}
                   className="rounded-2xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-md"
                 >
                   <div className="flex size-11 items-center justify-center rounded-xl border border-accent/25 bg-accent/10">
@@ -125,7 +124,7 @@ export function Integration() {
                   <p className="mt-1.5 text-sm leading-relaxed text-white/55">
                     {p.text}
                   </p>
-                </motion.div>
+                </TiltCard>
               );
             })}
           </div>

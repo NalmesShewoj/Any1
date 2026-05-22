@@ -6,9 +6,9 @@ import { cn } from "@/lib/utils";
 import { LogoImage } from "./LogoImage";
 
 const NAV = [
-  { href: "#features",   label: "Features" },
-  { href: "#challenges", label: "Challenges" },
-  { href: "#app",        label: "App" },
+  { href: "#vergleich",  label: "Vergleich" },
+  { href: "#app",        label: "So geht's" },
+  { href: "#challenges", label: "Ranglisten" },
   { href: "#faq",        label: "FAQ" },
 ];
 

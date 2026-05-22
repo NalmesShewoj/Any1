@@ -5,7 +5,7 @@ import { Dumbbell, Activity } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
 import { PulseWave } from "@/components/site/PulseWave";
 import { Counter } from "@/components/site/Counter";
-import { cn } from "@/lib/utils";
+import { TiltCard } from "@/components/site/TiltCard";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
 
@@ -47,12 +47,10 @@ function AthleteCard({
 }) {
   const Icon = athlete.icon;
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.8, delay, ease: EASE }}
-      className="relative flex-1 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl"
+    <TiltCard
+      delay={delay}
+      intensity={6}
+      className="flex-1 overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl"
     >
       {/* Header */}
       <div className="flex items-center justify-between">
@@ -108,7 +106,7 @@ function AthleteCard({
           />
         </div>
       </div>
-    </motion.div>
+    </TiltCard>
   );
 }
 

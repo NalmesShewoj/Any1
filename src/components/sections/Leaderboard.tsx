@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Medal, TrendingUp, Award } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { TiltCard } from "@/components/site/TiltCard";
 import { cn } from "@/lib/utils";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
@@ -166,12 +167,10 @@ export function Leaderboard() {
           ].map((r, i) => {
             const Icon = r.icon;
             return (
-              <motion.div
+              <TiltCard
                 key={r.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-60px" }}
-                transition={{ duration: 0.6, delay: i * 0.1, ease: EASE }}
+                delay={i * 0.1}
+                intensity={8}
                 className="rounded-2xl border border-white/10 bg-white/[0.03] p-5 backdrop-blur-md"
               >
                 <Icon className="size-6 text-accent" strokeWidth={2} />
@@ -181,7 +180,7 @@ export function Leaderboard() {
                 <p className="mt-1.5 text-sm leading-relaxed text-white/55">
                   {r.text}
                 </p>
-              </motion.div>
+              </TiltCard>
             );
           })}
         </div>
