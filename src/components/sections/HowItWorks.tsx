@@ -1,17 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { Watch, HeartPulse, Trophy } from "lucide-react";
 import { SectionHeading } from "@/components/site/SectionHeading";
+import { PhoneMockup } from "@/components/site/PhoneMockup";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
-
-// 3D nur clientseitig laden (kein SSR), lazy
-const Phone3D = dynamic(
-  () => import("@/components/site/Phone3D").then((m) => m.Phone3D),
-  { ssr: false }
-);
 
 const STEPS = [
   {
@@ -87,25 +81,10 @@ export function HowItWorks() {
             })}
           </ol>
 
-          {/* 3D Phone */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 1, ease: EASE }}
-            className="relative h-[420px] w-full sm:h-[520px]"
-          >
-            {/* glow */}
-            <div
-              aria-hidden
-              className="absolute inset-0 opacity-40 blur-3xl"
-              style={{
-                background:
-                  "radial-gradient(ellipse at center, rgba(255,255,255,0.16), transparent 65%)",
-              }}
-            />
-            <Phone3D />
-          </motion.div>
+          {/* Phone Mockup with real app UI */}
+          <div className="flex items-center justify-center py-6">
+            <PhoneMockup />
+          </div>
         </div>
       </div>
     </section>
