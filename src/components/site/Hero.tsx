@@ -153,12 +153,33 @@ export function Hero() {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.1, duration: 0.8, ease: EASE_OUT_EXPO }}
-          className="mt-5 max-w-xl text-balance text-base leading-relaxed text-white/72 sm:text-lg"
+          className="mt-5 max-w-2xl text-balance text-base leading-relaxed text-white/75 sm:text-lg"
         >
-          Verbinde deine Fitness-Daten. Tritt täglichen Challenges bei. Steige im
-          globalen Leaderboard auf. Werde Teil einer Liga, die nicht
-          stehenbleibt.
+          Gym oder Fußball — wer hat wirklich mehr geleistet? any1 misst echte
+          Anstrengung über deinen Puls und macht jede Sportart vergleichbar.
+          Tritt an, steig im Leaderboard auf, hol dir Medaillen.
         </motion.p>
+
+        {/* USP-Pills */}
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.25, duration: 0.7, ease: EASE_OUT_EXPO }}
+          className="mt-5 flex flex-wrap items-center justify-center gap-2"
+        >
+          {[
+            "Puls-basiertes Scoring",
+            "Sportart-übergreifend fair",
+            "Lokale + deutschlandweite Ranglisten",
+          ].map((pill) => (
+            <span
+              key={pill}
+              className="rounded-full border border-white/12 bg-white/[0.04] px-3 py-1.5 text-xs font-medium text-white/70 backdrop-blur-md"
+            >
+              {pill}
+            </span>
+          ))}
+        </motion.div>
 
         {/* Countdown + FOMO Card */}
         <motion.div
