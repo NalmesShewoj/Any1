@@ -35,7 +35,7 @@ export function Leaderboard() {
   return (
     <section
       id="challenges"
-      className="relative border-t border-border-subtle bg-bg-base py-28 sm:py-36"
+      className="relative border-t border-border-subtle bg-black/55 py-28 sm:py-36"
     >
       <div className="mx-auto max-w-5xl px-5 sm:px-8">
         <SectionHeading

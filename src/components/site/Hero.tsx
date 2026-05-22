@@ -2,7 +2,6 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
-import { ShaderAnimation } from "@/components/ui/shader-animation";
 import { Countdown } from "./Countdown";
 import { StoreBadge } from "./StoreBadge";
 import { WaitlistForm } from "./WaitlistForm";
@@ -21,50 +20,16 @@ export function Hero() {
       aria-label="Hero"
     >
       {/* =====================================================================
-          BACKGROUND
+          BACKGROUND — transparent; das globale 3D-Puls-Feld (SceneCanvas)
+          scheint durch. Hier nur dezente Layer für Text-Lesbarkeit.
           ===================================================================== */}
-      <div className="absolute inset-0 -z-10 overflow-hidden bg-black">
-        {reduced ? (
-          <div className="absolute inset-0 hero-mesh-fallback" aria-hidden />
-        ) : (
-          <div
-            className="absolute inset-0"
-            style={{
-              // Monochrom: komplett entsättigt → reines Schwarz/Weiß-Linienspiel
-              filter: "saturate(0) contrast(1.15) brightness(0.95)",
-            }}
-            aria-hidden
-          >
-            <ShaderAnimation />
-          </div>
-        )}
-
-        {/* Center-fade vignette — sanfter, lässt Shader im Center atmen */}
+      <div className="absolute inset-0 -z-[1] overflow-hidden">
+        {/* Dim hinter Headline/Sub für Kontrast (lässt das Feld an den Rändern atmen) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 110% 90% at 50% 45%, transparent 0%, rgba(0,0,0,0.32) 40%, rgba(0,0,0,0.78) 88%, rgba(0,0,0,0.95) 100%)",
-          }}
-          aria-hidden
-        />
-
-        {/* Sanfter zentraler Dim-Layer für Text-Kontrast (nur dort wo Headline+Sub sitzen) */}
-        <div
-          className="absolute inset-x-0 top-1/4 h-1/2"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 100% at 50% 50%, rgba(0,0,0,0.45) 0%, transparent 70%)",
-          }}
-          aria-hidden
-        />
-
-        {/* Soft neutral light bloom from center (statt Orange) */}
-        <div
-          className="absolute inset-0 opacity-30"
-          style={{
-            background:
-              "radial-gradient(ellipse 70% 55% at 50% 42%, rgba(255,255,255,0.12), transparent 70%)",
+              "radial-gradient(ellipse 75% 65% at 50% 40%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.30) 45%, transparent 78%)",
           }}
           aria-hidden
         />
@@ -74,17 +39,7 @@ export function Hero() {
           className="absolute inset-x-0 top-0 h-32"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)",
-          }}
-          aria-hidden
-        />
-
-        {/* Bottom fade (transition to next section) */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-48"
-          style={{
-            background:
-              "linear-gradient(to bottom, transparent 0%, var(--bg-base) 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%)",
           }}
           aria-hidden
         />

@@ -38,7 +38,7 @@ export function HowItWorks() {
   return (
     <section
       id="app"
-      className="relative overflow-hidden border-t border-border-subtle bg-bg-base py-28 sm:py-36"
+      className="relative overflow-hidden border-t border-border-subtle bg-black/55 py-28 sm:py-36"
     >
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         <SectionHeading

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
+import { SceneCanvas } from "@/components/site/SceneCanvas";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -57,8 +58,11 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} dark h-full antialiased`}
       suppressHydrationWarning
     >
-      <body className="min-h-full bg-bg-base text-foreground">
-        <SmoothScroll>{children}</SmoothScroll>
+      <body className="min-h-full bg-black text-foreground">
+        <SceneCanvas />
+        <div className="relative z-10">
+          <SmoothScroll>{children}</SmoothScroll>
+        </div>
       </body>
     </html>
   );
