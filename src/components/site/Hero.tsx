@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useMemo, useRef, useState } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import { Countdown } from "./Countdown";
@@ -8,10 +9,31 @@ import { WaitlistForm } from "./WaitlistForm";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
 
-const HEADLINE_WORDS = ["Anyone.", "Anytime.", "Anywhere."];
-
 export function Hero() {
   const reduced = useReducedMotion();
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  // Force-play the background video (autoplay is often blocked)
+  useEffect(() => {
+    const v = videoRef.current;
+    if (!v || reduced) return;
+    v.play().catch(() => {});
+  }, [reduced]);
+
+  // Rotating last line — plays on the "Any…" brand bracket (any1 = anyone)
+  const rotating = useMemo(
+    () => ["Anywhere.", "Any sport.", "Any level.", "Anyone."],
+    []
+  );
+  const [idx, setIdx] = useState(0);
+  useEffect(() => {
+    if (reduced) return;
+    const id = setTimeout(
+      () => setIdx((i) => (i + 1) % rotating.length),
+      2200
+    );
+    return () => clearTimeout(id);
+  }, [idx, rotating, reduced]);
 
   return (
     <section
@@ -20,16 +42,33 @@ export function Hero() {
       aria-label="Hero"
     >
       {/* =====================================================================
-          BACKGROUND — transparent; das globale 3D-Puls-Feld (SceneCanvas)
-          scheint durch. Hier nur dezente Layer für Text-Lesbarkeit.
+          BACKGROUND — monochrome video loop (falls offline: globaler Shader
+          scheint durch). Darüber Scrims für Text-Lesbarkeit.
           ===================================================================== */}
       <div className="absolute inset-0 -z-[1] overflow-hidden">
-        {/* Dim hinter Headline/Sub für Kontrast (lässt den Shader an den Rändern atmen) */}
+        {!reduced && (
+          <video
+            ref={videoRef}
+            className="absolute inset-0 h-full w-full object-cover"
+            style={{ filter: "grayscale(1) contrast(1.1) brightness(0.8)" }}
+            src="https://videos.pexels.com/video-files/18526841/uhd_30fps.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+            aria-hidden
+          />
+        )}
+
+        {/* base darken over video */}
+        <div className="absolute inset-0 bg-black/45" aria-hidden />
+
+        {/* Dim hinter Headline/Sub für Kontrast */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 80% 62% at 50% 42%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 42%, transparent 80%)",
+              "radial-gradient(ellipse 80% 62% at 50% 42%, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.40) 42%, transparent 80%)",
           }}
           aria-hidden
         />
@@ -39,7 +78,17 @@ export function Hero() {
           className="absolute inset-x-0 top-0 h-32"
           style={{
             background:
-              "linear-gradient(to bottom, rgba(0,0,0,0.65) 0%, transparent 100%)",
+              "linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 100%)",
+          }}
+          aria-hidden
+        />
+
+        {/* Bottom fade → transition to sections */}
+        <div
+          className="absolute inset-x-0 bottom-0 h-40"
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent 0%, #000 100%)",
           }}
           aria-hidden
         />
@@ -72,36 +121,44 @@ export function Hero() {
           </span>
         </motion.div>
 
-        {/* Headline */}
+        {/* Headline — fixed bracket + rotating "Any…" word */}
         <h1
           className="mt-2 font-display text-white"
           style={{
             fontSize: "clamp(2.5rem, 6.5vw, 5.5rem)",
             fontWeight: 600,
-            lineHeight: 0.96,
+            lineHeight: 0.98,
             letterSpacing: "-0.045em",
-            textShadow: "0 2px 40px rgba(0,0,0,0.8), 0 1px 12px rgba(0,0,0,0.6)",
+            textShadow: "0 2px 40px rgba(0,0,0,0.85), 0 1px 12px rgba(0,0,0,0.7)",
           }}
         >
-          {HEADLINE_WORDS.map((word, i) => (
-            <span
-              key={word}
-              className="mr-[0.18em] inline-block overflow-hidden align-baseline"
-            >
+          <motion.span
+            initial={reduced ? false : { opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.8, ease: EASE_OUT_EXPO }}
+            className="block"
+          >
+            Anyone. Anytime.
+          </motion.span>
+
+          {/* rotating line */}
+          <span className="relative mt-1 flex h-[1.15em] w-full items-center justify-center overflow-hidden">
+            {rotating.map((word, i) => (
               <motion.span
-                initial={reduced ? false : { y: "110%" }}
-                animate={{ y: "0%" }}
-                transition={{
-                  delay: 0.7 + i * 0.09,
-                  duration: 0.9,
-                  ease: EASE_OUT_EXPO,
-                }}
-                className="inline-block"
+                key={word}
+                className="absolute inline-block"
+                initial={{ opacity: 0, y: "120%" }}
+                animate={
+                  idx === i
+                    ? { opacity: 1, y: "0%" }
+                    : { opacity: 0, y: idx > i ? "-120%" : "120%" }
+                }
+                transition={{ type: "spring", stiffness: 70, damping: 16 }}
               >
                 {word}
               </motion.span>
-            </span>
-          ))}
+            ))}
+          </span>
         </h1>
 
         {/* Sub */}
