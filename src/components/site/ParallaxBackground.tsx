@@ -156,19 +156,19 @@ export function ParallaxBackground() {
       <motion.div className="absolute -inset-[15%]" style={{ y: yA, x: axA, translateY: ayA }}>
         <motion.div
           className="absolute left-[8%] top-[4%] size-[62vw] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.20), transparent 60%)", filter: "blur(45px)" }}
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.13), transparent 60%)", filter: "blur(50px)" }}
           animate={{ x: [0, 110, -30, 0], y: [0, 70, 25, 0], scale: [1, 1.18, 0.92, 1] }}
           transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute right-[2%] top-[38%] size-[54vw] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.17), transparent 60%)", filter: "blur(55px)" }}
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.11), transparent 60%)", filter: "blur(60px)" }}
           animate={{ x: [0, -95, 40, 0], y: [0, 80, -25, 0], scale: [1, 0.9, 1.16, 1] }}
           transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
           className="absolute left-[42%] top-[70%] size-[48vw] rounded-full"
-          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.14), transparent 60%)", filter: "blur(50px)" }}
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.09), transparent 60%)", filter: "blur(55px)" }}
           animate={{ x: [0, 70, -55, 0], y: [0, -55, 40, 0], scale: [1, 1.14, 0.9, 1] }}
           transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         />
@@ -179,43 +179,43 @@ export function ParallaxBackground() {
         className="absolute inset-x-0 top-1/2 h-[260px] -translate-y-1/2"
         style={{ y: pulseDrift, translateY: pulseLean }}
       >
-        {/* glow halo */}
+        {/* glow halo (subtle) */}
         <div
           className="absolute inset-x-0 top-1/2 h-32 -translate-y-1/2"
           style={{
             background:
-              "radial-gradient(ellipse 55% 100% at 50% 50%, rgba(255,255,255,0.18), transparent 72%)",
+              "radial-gradient(ellipse 55% 100% at 50% 50%, rgba(255,255,255,0.07), transparent 72%)",
             filter: "blur(24px)",
           }}
         />
         {/* echo wave (back, big, soft) */}
         <PulseLine
           className="absolute inset-0"
-          opacity={0.35}
+          opacity={0.14}
           blur={3}
           dur={5.2}
           strokeW={3}
-          glowStd={6}
+          glowStd={5}
           scaleY={1.4}
         />
-        {/* main wave (sharp, bright) */}
+        {/* main wave (dimmed to an accent — keeps the thread, frees the text) */}
         <PulseLine
           className="absolute inset-0"
-          opacity={0.95}
+          opacity={0.4}
           blur={0}
           dur={3.4}
-          strokeW={3}
-          glowStd={5}
+          strokeW={2}
+          glowStd={3}
           scaleY={1}
         />
         {/* fast thin wave (front) */}
         <PulseLine
           className="absolute inset-0"
-          opacity={0.5}
+          opacity={0.22}
           blur={0}
           dur={2.4}
-          strokeW={1.5}
-          glowStd={3}
+          strokeW={1.2}
+          glowStd={2}
           scaleY={0.6}
         />
       </motion.div>
@@ -240,6 +240,8 @@ export function ParallaxBackground() {
         ))}
       </motion.div>
 
+      {/* global readability scrim — dampens the whole bg so white text stays crisp */}
+      <div className="absolute inset-0 bg-black/35" />
       {/* vignette + grain */}
       <div
         className="absolute inset-0"
