@@ -8,21 +8,91 @@ import {
   useTransform,
   useScroll,
   useReducedMotion,
+  type MotionValue,
 } from "framer-motion";
 
 /**
- * ParallaxBackground — "Signature Pulse"
+ * ParallaxBackground — "Signature Pulse" (bold)
  *
- * Durchgehendes Signature-Element: eine große, leuchtende EKG-Puls-Welle,
- * die kontinuierlich quer durch den Viewport läuft (auf jeder Section sichtbar
- * = roter Faden) — thematisch der Puls, der Kern von any1.
- * Plus ein energetischer, fließender Gradient-Hintergrund (Bewegung + Glow)
- * und Maus/Scroll-Parallax. Monochrom, kein WebGL.
+ * Mehrlagige, leuchtende EKG-Puls-Wellen als durchgehender roter Faden +
+ * energetischer, fließender Gradient-Hintergrund mit rotierendem Lichtspiel.
+ * Monochrom, kein WebGL. Maus/Scroll-Parallax.
  */
 
-// One PQRST-style EKG segment (tiles seamlessly across width)
 const EKG_SEG =
   "M0 100 H120 L138 100 L150 60 L162 150 L174 20 L186 170 L198 100 L216 100 H320";
+
+function PulseLine({
+  className,
+  opacity,
+  blur,
+  dur,
+  strokeW,
+  glowStd,
+  scaleY,
+  yMotion,
+}: {
+  className?: string;
+  opacity: number;
+  blur: number;
+  dur: number;
+  strokeW: number;
+  glowStd: number;
+  scaleY: number;
+  yMotion?: MotionValue<string>;
+}) {
+  const gid = `ekg-${dur}-${strokeW}`;
+  return (
+    <motion.div
+      className={className}
+      style={{ opacity, y: yMotion, filter: blur ? `blur(${blur}px)` : undefined }}
+    >
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 1280 200"
+        preserveAspectRatio="none"
+      >
+        <defs>
+          <linearGradient id={`fade-${gid}`} x1="0" x2="1" y1="0" y2="0">
+            <stop offset="0%" stopColor="#fff" stopOpacity="0" />
+            <stop offset="16%" stopColor="#fff" stopOpacity="0.9" />
+            <stop offset="50%" stopColor="#fff" stopOpacity="1" />
+            <stop offset="84%" stopColor="#fff" stopOpacity="0.9" />
+            <stop offset="100%" stopColor="#fff" stopOpacity="0" />
+          </linearGradient>
+          <filter id={`glow-${gid}`} x="-20%" y="-80%" width="140%" height="260%">
+            <feGaussianBlur stdDeviation={glowStd} result="b" />
+            <feMerge>
+              <feMergeNode in="b" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
+        </defs>
+        <motion.g
+          animate={{ x: [0, -320] }}
+          transition={{ duration: dur, repeat: Infinity, ease: "linear" }}
+          style={{ transformOrigin: "center" }}
+        >
+          <g transform={`translate(0, ${100 - 100 * scaleY}) scale(1, ${scaleY})`}>
+            {[0, 1, 2, 3, 4, 5].map((i) => (
+              <path
+                key={i}
+                d={EKG_SEG}
+                transform={`translate(${i * 320}, 0)`}
+                fill="none"
+                stroke={`url(#fade-${gid})`}
+                strokeWidth={strokeW}
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                filter={`url(#glow-${gid})`}
+              />
+            ))}
+          </g>
+        </motion.g>
+      </svg>
+    </motion.div>
+  );
+}
 
 export function ParallaxBackground() {
   const reduced = useReducedMotion();
@@ -43,20 +113,15 @@ export function ParallaxBackground() {
     return () => window.removeEventListener("mousemove", onMove);
   }, [reduced, mx, my]);
 
-  // parallax
-  const yA = useTransform(scrollY, [0, 4000], [0, -200]);
-  const axA = useTransform(smx, [-0.5, 0.5], [-28, 28]);
-  const ayA = useTransform(smy, [-0.5, 0.5], [-28, 28]);
-  const axGlint = useTransform(smx, [-0.5, 0.5], [-70, 70]);
-  const ayGlint = useTransform(smy, [-0.5, 0.5], [-70, 70]);
+  const yA = useTransform(scrollY, [0, 4000], [0, -220]);
+  const axA = useTransform(smx, [-0.5, 0.5], [-34, 34]);
+  const ayA = useTransform(smy, [-0.5, 0.5], [-34, 34]);
+  const axGlint = useTransform(smx, [-0.5, 0.5], [-80, 80]);
+  const ayGlint = useTransform(smy, [-0.5, 0.5], [-80, 80]);
 
-  // the pulse line drifts slightly with scroll (keeps it alive through the page)
-  const pulseY = useTransform(scrollYProgress, [0, 1], ["0%", "26%"]);
-  const pulseOpacity = useTransform(
-    scrollYProgress,
-    [0, 0.04, 0.9, 1],
-    [0.85, 0.7, 0.7, 0.9]
-  );
+  // pulse drifts down through the page + leans with mouse
+  const pulseDrift = useTransform(scrollYProgress, [0, 1], ["-8%", "30%"]);
+  const pulseLean = useTransform(smy, [-0.5, 0.5], ["-6%", "6%"]);
 
   if (reduced) {
     return (
@@ -65,7 +130,7 @@ export function ParallaxBackground() {
         className="pointer-events-none fixed inset-0 z-0"
         style={{
           background:
-            "radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,255,255,0.06), transparent 60%), #000",
+            "radial-gradient(ellipse 80% 60% at 30% 25%, rgba(255,255,255,0.07), transparent 60%), #000",
         }}
       />
     );
@@ -76,97 +141,86 @@ export function ParallaxBackground() {
       aria-hidden
       className="pointer-events-none fixed inset-0 z-0 overflow-hidden bg-black"
     >
-      {/* ---- Flowing gradient blobs (pepp + movement) ---- */}
+      {/* rotating conic light sweep (more pepp) */}
+      <motion.div
+        className="absolute left-1/2 top-1/2 h-[160vmax] w-[160vmax] -translate-x-1/2 -translate-y-1/2"
+        style={{
+          background:
+            "conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.05) 60deg, transparent 130deg, rgba(255,255,255,0.04) 220deg, transparent 300deg)",
+        }}
+        animate={{ rotate: 360 }}
+        transition={{ duration: 70, repeat: Infinity, ease: "linear" }}
+      />
+
+      {/* flowing gradient blobs (brighter + faster) */}
       <motion.div className="absolute -inset-[15%]" style={{ y: yA, x: axA, translateY: ayA }}>
         <motion.div
-          className="absolute left-[10%] top-[6%] size-[60vw] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.16), transparent 62%)",
-            filter: "blur(50px)",
-          }}
-          animate={{ x: [0, 80, -20, 0], y: [0, 50, 20, 0], scale: [1, 1.12, 0.95, 1] }}
-          transition={{ duration: 20, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[8%] top-[4%] size-[62vw] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.20), transparent 60%)", filter: "blur(45px)" }}
+          animate={{ x: [0, 110, -30, 0], y: [0, 70, 25, 0], scale: [1, 1.18, 0.92, 1] }}
+          transition={{ duration: 16, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute right-[4%] top-[40%] size-[52vw] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.13), transparent 62%)",
-            filter: "blur(60px)",
-          }}
-          animate={{ x: [0, -70, 30, 0], y: [0, 60, -20, 0], scale: [1, 0.92, 1.1, 1] }}
-          transition={{ duration: 24, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute right-[2%] top-[38%] size-[54vw] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.17), transparent 60%)", filter: "blur(55px)" }}
+          animate={{ x: [0, -95, 40, 0], y: [0, 80, -25, 0], scale: [1, 0.9, 1.16, 1] }}
+          transition={{ duration: 19, repeat: Infinity, ease: "easeInOut" }}
         />
         <motion.div
-          className="absolute left-[44%] top-[72%] size-[46vw] rounded-full"
-          style={{
-            background:
-              "radial-gradient(circle, rgba(255,255,255,0.10), transparent 62%)",
-            filter: "blur(55px)",
-          }}
-          animate={{ x: [0, 50, -40, 0], y: [0, -40, 30, 0], scale: [1, 1.08, 0.94, 1] }}
-          transition={{ duration: 28, repeat: Infinity, ease: "easeInOut" }}
+          className="absolute left-[42%] top-[70%] size-[48vw] rounded-full"
+          style={{ background: "radial-gradient(circle, rgba(255,255,255,0.14), transparent 60%)", filter: "blur(50px)" }}
+          animate={{ x: [0, 70, -55, 0], y: [0, -55, 40, 0], scale: [1, 1.14, 0.9, 1] }}
+          transition={{ duration: 22, repeat: Infinity, ease: "easeInOut" }}
         />
       </motion.div>
 
-      {/* ---- SIGNATURE: continuous EKG pulse line ---- */}
+      {/* ---- SIGNATURE: layered EKG pulse ---- */}
       <motion.div
-        className="absolute inset-x-0 top-1/2 h-[200px]"
-        style={{ y: pulseY, opacity: pulseOpacity }}
+        className="absolute inset-x-0 top-1/2 h-[260px] -translate-y-1/2"
+        style={{ y: pulseDrift, translateY: pulseLean }}
       >
-        {/* glow halo behind the line */}
+        {/* glow halo */}
         <div
-          className="absolute inset-x-0 top-1/2 h-24 -translate-y-1/2"
+          className="absolute inset-x-0 top-1/2 h-32 -translate-y-1/2"
           style={{
             background:
-              "radial-gradient(ellipse 60% 100% at 50% 50%, rgba(255,255,255,0.12), transparent 70%)",
-            filter: "blur(20px)",
+              "radial-gradient(ellipse 55% 100% at 50% 50%, rgba(255,255,255,0.18), transparent 72%)",
+            filter: "blur(24px)",
           }}
         />
-        <svg
-          className="absolute inset-0 h-full w-full"
-          viewBox="0 0 1280 200"
-          preserveAspectRatio="none"
-        >
-          <defs>
-            <linearGradient id="ekg-fade" x1="0" x2="1" y1="0" y2="0">
-              <stop offset="0%" stopColor="#fff" stopOpacity="0" />
-              <stop offset="18%" stopColor="#fff" stopOpacity="0.85" />
-              <stop offset="50%" stopColor="#fff" stopOpacity="1" />
-              <stop offset="82%" stopColor="#fff" stopOpacity="0.85" />
-              <stop offset="100%" stopColor="#fff" stopOpacity="0" />
-            </linearGradient>
-            <filter id="ekg-glow" x="-20%" y="-60%" width="140%" height="220%">
-              <feGaussianBlur stdDeviation="4" result="b" />
-              <feMerge>
-                <feMergeNode in="b" />
-                <feMergeNode in="SourceGraphic" />
-              </feMerge>
-            </filter>
-          </defs>
-          <motion.g
-            animate={{ x: [0, -320] }}
-            transition={{ duration: 3.4, repeat: Infinity, ease: "linear" }}
-          >
-            {[0, 1, 2, 3, 4, 5].map((i) => (
-              <path
-                key={i}
-                d={EKG_SEG}
-                transform={`translate(${i * 320}, 0)`}
-                fill="none"
-                stroke="url(#ekg-fade)"
-                strokeWidth="2.5"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                filter="url(#ekg-glow)"
-              />
-            ))}
-          </motion.g>
-        </svg>
+        {/* echo wave (back, big, soft) */}
+        <PulseLine
+          className="absolute inset-0"
+          opacity={0.35}
+          blur={3}
+          dur={5.2}
+          strokeW={3}
+          glowStd={6}
+          scaleY={1.4}
+        />
+        {/* main wave (sharp, bright) */}
+        <PulseLine
+          className="absolute inset-0"
+          opacity={0.95}
+          blur={0}
+          dur={3.4}
+          strokeW={3}
+          glowStd={5}
+          scaleY={1}
+        />
+        {/* fast thin wave (front) */}
+        <PulseLine
+          className="absolute inset-0"
+          opacity={0.5}
+          blur={0}
+          dur={2.4}
+          strokeW={1.5}
+          glowStd={3}
+          scaleY={0.6}
+        />
       </motion.div>
 
-      {/* ---- Glints (front, fast parallax) ---- */}
+      {/* glints */}
       <motion.div className="absolute -inset-[25%]" style={{ x: axGlint, translateY: ayGlint }}>
         {[
           { t: "14%", l: "20%", s: 3 },
@@ -179,25 +233,19 @@ export function ParallaxBackground() {
           <motion.span
             key={i}
             className="absolute rounded-full bg-white"
-            style={{
-              top: g.t,
-              left: g.l,
-              width: g.s,
-              height: g.s,
-              boxShadow: "0 0 10px 2px rgba(255,255,255,0.7)",
-            }}
-            animate={{ opacity: [0.2, 0.9, 0.2] }}
+            style={{ top: g.t, left: g.l, width: g.s, height: g.s, boxShadow: "0 0 10px 2px rgba(255,255,255,0.7)" }}
+            animate={{ opacity: [0.2, 0.95, 0.2] }}
             transition={{ duration: 3 + (i % 3), repeat: Infinity, ease: "easeInOut", delay: i * 0.5 }}
           />
         ))}
       </motion.div>
 
-      {/* ---- Vignette + grain ---- */}
+      {/* vignette + grain */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "radial-gradient(ellipse 100% 90% at 50% 40%, transparent 42%, rgba(0,0,0,0.5) 82%, rgba(0,0,0,0.82) 100%)",
+            "radial-gradient(ellipse 100% 90% at 50% 40%, transparent 44%, rgba(0,0,0,0.48) 82%, rgba(0,0,0,0.8) 100%)",
         }}
       />
       <div className="absolute inset-0 grain" />
