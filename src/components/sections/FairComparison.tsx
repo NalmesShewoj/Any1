@@ -114,7 +114,7 @@ export function FairComparison() {
   return (
     <section
       id="vergleich"
-      className="relative border-t border-border-subtle bg-black/55 py-28 sm:py-36"
+      className="relative border-t border-border-subtle bg-black/35 py-28 sm:py-36"
     >
       {/* ambient glow */}
       <div

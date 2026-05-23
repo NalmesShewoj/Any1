@@ -2,7 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SmoothScroll } from "@/components/site/SmoothScroll";
-import { ParallaxBackground } from "@/components/site/ParallaxBackground";
+import { ShaderBackground } from "@/components/site/ShaderBackground";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -59,7 +59,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-full bg-black text-foreground">
-        <ParallaxBackground />
+        <ShaderBackground />
         <div className="relative z-10">
           <SmoothScroll>{children}</SmoothScroll>
         </div>

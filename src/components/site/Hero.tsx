@@ -24,12 +24,12 @@ export function Hero() {
           scheint durch. Hier nur dezente Layer für Text-Lesbarkeit.
           ===================================================================== */}
       <div className="absolute inset-0 -z-[1] overflow-hidden">
-        {/* Dim hinter Headline/Sub für Kontrast (lässt das Feld an den Rändern atmen) */}
+        {/* Dim hinter Headline/Sub für Kontrast (lässt den Shader an den Rändern atmen) */}
         <div
           className="absolute inset-0"
           style={{
             background:
-              "radial-gradient(ellipse 75% 65% at 50% 40%, rgba(0,0,0,0.62) 0%, rgba(0,0,0,0.30) 45%, transparent 78%)",
+              "radial-gradient(ellipse 80% 62% at 50% 42%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.55) 42%, transparent 80%)",
           }}
           aria-hidden
         />
@@ -80,6 +80,7 @@ export function Hero() {
             fontWeight: 600,
             lineHeight: 0.96,
             letterSpacing: "-0.045em",
+            textShadow: "0 2px 40px rgba(0,0,0,0.8), 0 1px 12px rgba(0,0,0,0.6)",
           }}
         >
           {HEADLINE_WORDS.map((word, i) => (

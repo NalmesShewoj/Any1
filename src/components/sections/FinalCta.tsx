@@ -8,7 +8,7 @@ const EASE = [0.16, 1, 0.3, 1] as const;
 
 export function FinalCta() {
   return (
-    <section className="relative overflow-hidden border-t border-border-subtle bg-black/55 py-28 sm:py-36">
+    <section className="relative overflow-hidden border-t border-border-subtle bg-black/35 py-28 sm:py-36">
       {/* Accent glow band */}
       <div
         aria-hidden

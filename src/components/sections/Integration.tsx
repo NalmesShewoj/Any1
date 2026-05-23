@@ -34,7 +34,7 @@ const PRIVACY = [
 
 export function Integration() {
   return (
-    <section className="relative overflow-hidden border-t border-border-subtle bg-black/55 py-28 sm:py-36">
+    <section className="relative overflow-hidden border-t border-border-subtle bg-black/35 py-28 sm:py-36">
       <div className="mx-auto max-w-6xl px-5 sm:px-8">
         {/* Integration block */}
         <div className="grid items-center gap-12 lg:grid-cols-2">

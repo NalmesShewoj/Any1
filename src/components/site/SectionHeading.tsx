@@ -60,7 +60,11 @@ export function SectionHeading({
       {/* Title with clip reveal */}
       <h2
         className="max-w-3xl text-balance text-4xl font-semibold tracking-tight text-white sm:text-5xl md:text-6xl"
-        style={{ letterSpacing: "-0.035em", lineHeight: 1.04 }}
+        style={{
+          letterSpacing: "-0.035em",
+          lineHeight: 1.04,
+          textShadow: "0 2px 36px rgba(0,0,0,0.75), 0 1px 10px rgba(0,0,0,0.5)",
+        }}
       >
         <span className="inline-block overflow-hidden align-bottom">
           <motion.span
